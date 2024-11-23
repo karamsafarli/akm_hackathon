@@ -1,32 +1,53 @@
-import { Link } from "react-router-dom";
-import { FaGoogle } from "react-icons/fa";
-
+import { useState } from 'react'
 import './forgetpassword.css'
+import { fetchData } from '../../services/fetch';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 const ForgetPassword = () => {
+  const [email, setEmail] = useState('');
+  const navigate = useNavigate();
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!email) return;
+
+    const res = await fetchData(
+      'api/users/requestPasswordReset',
+      'POST',
+      { email }
+    );
+
+    if (res.error) return toast.error(res.error);
+
+    toast.success(res.message)
+
+    navigate('/login')
+  }
   return (
     <div className="forgetpassword_page">
-    <div className="container">
-      <div className="row">
-        <div className="form-container sign-up">
-          <form>
-            <h1>Forget Password</h1>
+      <div className="container">
+        <div className="row">
+          <div className="form-container sign-up">
+            <form>
+              <h1>Forget Password</h1>
 
-            <div className="data">
-              <input type="email" placeholder="Email" />
-               
-              <button type="submit">Reset Password</button>
-              <div className="btns">
+              <div className="data">
+                <input type="email" required placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
 
-            
-              <a href="/login">Login</a>
-              <a href="/register">Sign up</a>
+                <button onClick={onSubmit} type="submit">Reset Password</button>
+                <div className="btns">
+
+
+                  <a href="/login">Login</a>
+                  <a href="/register">Sign up</a>
+                </div>
               </div>
-            </div>
-          </form>
+            </form>
+          </div>
         </div>
       </div>
-    </div>
-  </div>  )
+    </div>)
 }
 
 export default ForgetPassword

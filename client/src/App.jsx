@@ -3,9 +3,12 @@ import Login from './pages/login/Login';
 import Register from './pages/register/Register';
 import "./global.css"
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'react-toastify/dist/ReactToastify.css';
 import Navbar from "./components/layout/Navbar";
 import Home from "./pages/home/Home";
 import ForgetPassword from "./pages/forget-password/ForgetPassword";
+import { ToastContainer } from 'react-toastify';
+
 function App() {
   return (
     <BrowserRouter>
@@ -18,7 +21,7 @@ function Pages() {
   const location = useLocation();
   const isLoginPage = location.pathname === "/login" ||
     location.pathname === '/register' ||
-  location.pathname === '/forget-password';
+    location.pathname === '/forget-password';
 
   return (
     <>
@@ -36,6 +39,9 @@ function Pages() {
           <Route path="/forget-password" element={<ForgetPassword />} />
         </Routes>
       )}
+
+
+      <ToastContainer />
     </>
   );
 }
