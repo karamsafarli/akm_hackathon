@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import Login from './pages/login/Login';
 import Register from './pages/register/Register';
-
+import "./global.css"
 function App() {
   return (
     <BrowserRouter>
