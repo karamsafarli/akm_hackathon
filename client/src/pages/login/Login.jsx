@@ -42,7 +42,7 @@ const Login = () => {
     <div className="login_page">
       <div className="container">
         <div className="row">
-          <div className="form-container sign-up">
+          <div className="form-container sign-in">
             <form onSubmit={handleSubmit}>
               <h1>Sign In</h1>
 
