@@ -9,20 +9,19 @@ const Login = () => {
         <div className="row">
           <div className="form-container sign-up">
             <form>
-              <h1>Create Account</h1>
+              <h1>Sign In</h1>
 
               <div className="data">
-                <input type="text" placeholder="Name" />
                 <input type="email" placeholder="Email" />
                 <input type="password" placeholder="Password" />
-                <input type="password" placeholder="Password Again" />
                 <span>or use your Google account</span>
                 <div className="social-icons">
                   <Link href="#" className="icon">
                     <FaGoogle />
                   </Link>
                 </div>
-                <button type="submit">Sign Up</button>
+                <button type="submit">Login</button>
+                <a href="/forgetpassword">Forget Password?</a>
               </div>
             </form>
           </div>
