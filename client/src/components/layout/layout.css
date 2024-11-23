@@ -1,5 +1,5 @@
 nav {
-    background-color: #7dc5be;
+    background-color: #66CDAA;
     padding: 5px 0;
     overflow: hidden;
 
@@ -23,7 +23,6 @@ nav {
 
                 span {
                     font-weight: 600;
-                    padding-top: 23px;
                     font-family: sans-serif !important;
                 }
             }

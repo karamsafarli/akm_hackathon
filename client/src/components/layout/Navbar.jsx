@@ -27,7 +27,6 @@ const Navbar = () => {
 
                 <div className={`nav_links ${menuOpen ? "open" : ""}`}>
                     <Link to='/' onClick={toggleMenu}>Home</Link>
-                    <Link to='/upload' onClick={toggleMenu}>Upload</Link>
                     <Link to='/profile' onClick={toggleMenu}>Profile</Link>
                 </div>
             </div>
