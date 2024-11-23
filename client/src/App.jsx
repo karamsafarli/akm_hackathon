@@ -1,6 +1,8 @@
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import Login from './pages/login/Login';
 import Register from './pages/register/Register';
+import Navbar from "./components/layout/Navbar";
+import Home from "./pages/home/Home";
 
 function App() {
   return (
@@ -12,14 +14,16 @@ function App() {
 
 function Pages() {
   const location = useLocation();
-  const isLoginPage = location.pathname === "/login" || '/register';
+  const isLoginPage = location.pathname === "/login" ||
+    location.pathname === '/register';
 
   return (
     <>
       {!isLoginPage ? (
         <>
+          <Navbar />
           <Routes>
-
+            <Route path='/' element={<Home />} />
           </Routes>
         </>
       ) : (
