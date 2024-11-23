@@ -1,9 +1,10 @@
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import Login from './pages/login/Login';
 import Register from './pages/register/Register';
+import "./global.css"
+import 'bootstrap/dist/css/bootstrap.min.css';
 import Navbar from "./components/layout/Navbar";
 import Home from "./pages/home/Home";
-
 function App() {
   return (
     <BrowserRouter>
