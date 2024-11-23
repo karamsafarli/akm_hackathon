@@ -29,4 +29,8 @@ router.patch('/updateAbout', authenticateToken, userController.updateAbout);
 
 router.patch('/updateProfileView', authenticateToken, userController.updateProfileView);
 
+
+router.post("/requestPasswordReset", userController.requestPasswordReset); 
+router.post("/passwordReset/:token", userController.resetPassword); 
+
 module.exports = router;

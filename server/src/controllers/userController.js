@@ -1,13 +1,15 @@
 const bcrypt = require('bcryptjs');
 const User = require('../models/userModel');
 const jwt = require('jsonwebtoken');
+const crypto = require('crypto');
+const { sendMail } = require('../services/notifications/mailer');
 
 
 const register = async (req, res) => {
     try {
         const { name, email, password } = req.body;
         const hashedPassword = await bcrypt.hash(password, 10);
-        const user = new User({ name, email, password: hashedPassword});
+        const user = new User({ name, email, password: hashedPassword });
 
         await user.save();
         return res.status(201).json({ message: 'User registered successfully!' });
@@ -196,6 +198,74 @@ const updateProfileView = async (req, res) => {
 }
 
 
+
+const requestPasswordReset = async (req, res) => {
+    try {
+        const { email } = req.body;
+        const user = await User.findOne({ email });
+        if (!user) {
+            return res.status(404).json({ error: "User not found" });
+        }
+
+        const resetToken = crypto.randomBytes(32).toString("hex");
+
+        user.resetPasswordToken = resetToken;
+        user.resetPasswordExpires = Date.now() + 3600000;
+        await user.save();
+
+
+        const resetUrl = `${process.env.BASE_URL}/reset-password/${resetToken}`;
+        const message = `
+      <p>You requested a password reset</p>
+      <p>Click this link to reset your password: <a href="${resetUrl}">${resetUrl}</a></p>
+    `;
+
+        await sendMail(
+            user.email,
+            "Password Reset Request",
+            message,
+        );
+
+        res.status(200).json({ message: "Reset link sent to your email" });
+    } catch (error) {
+        res.status(500).json({ error });
+    }
+};
+
+
+
+const resetPassword = async (req, res) => {
+    try {
+        const { token } = req.params;
+        const { newPassword } = req.body;
+
+        const user = await User.findOne({
+            resetPasswordToken: token,
+            resetPasswordExpires: { $gt: Date.now() },
+        });
+
+        if (!user) {
+            return res.status(400).json({ error: "Invalid or expired token" });
+        }
+
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(newPassword, salt);
+
+        user.password = hashedPassword;
+        user.resetPasswordToken = undefined;
+        user.resetPasswordExpires = undefined;
+        await user.save();
+
+        return res.status(200).json({ message: "Password reset successful" });
+    } catch (error) {
+        return res.status(500).json({ error: "Error resetting password" });
+    }
+};
+
+
+
+
+
 module.exports = {
     register,
     login,
@@ -207,5 +277,7 @@ module.exports = {
     searchUsers,
     getMe,
     updateAbout,
-    updateProfileView
+    updateProfileView,
+    resetPassword,
+    requestPasswordReset
 }

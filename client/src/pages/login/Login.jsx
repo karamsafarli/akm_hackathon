@@ -3,6 +3,7 @@ import { FaEye, FaEyeSlash, FaGoogle } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { fetchData } from "../../services/fetch"; 
+import { toast } from "react-toastify";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -29,6 +30,7 @@ const Login = () => {
 
       if (response.token) {
         localStorage.setItem("token", response.token);
+        toast.success('Login successfull!')
         navigate("/");
       } else {
         setErrorMessage(response.error || "Login failed. Please try again.");
@@ -42,7 +44,7 @@ const Login = () => {
     <div className="login_page">
       <div className="container">
         <div className="row">
-          <div className="form-container sign-up">
+          <div className="form-container sign-in">
             <form onSubmit={handleSubmit}>
               <h1>Sign In</h1>
 

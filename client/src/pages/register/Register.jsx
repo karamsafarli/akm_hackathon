@@ -23,7 +23,7 @@ const Register = () => {
 
     const validatePassword = (password) => {
         const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*_])[A-Za-z\d!@#$%^&*_]{10,}$/;
-;
+
         return regex.test(password);
     };
 

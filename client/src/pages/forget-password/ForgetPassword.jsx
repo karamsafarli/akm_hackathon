@@ -2,10 +2,9 @@ import { useState } from 'react'
 import './forgetpassword.css'
 import { fetchData } from '../../services/fetch';
 import { toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
+
 const ForgetPassword = () => {
   const [email, setEmail] = useState('');
-  const navigate = useNavigate();
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -21,8 +20,6 @@ const ForgetPassword = () => {
     if (res.error) return toast.error(res.error);
 
     toast.success(res.message)
-
-    navigate('/login')
   }
   return (
     <div className="forgetpassword_page">

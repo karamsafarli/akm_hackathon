@@ -7,8 +7,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import Navbar from "./components/layout/Navbar";
 import Home from "./pages/home/Home";
 import ForgetPassword from "./pages/forget-password/ForgetPassword";
-import { ToastContainer } from 'react-toastify';
-
+import ResetPassword from "./pages/reset-password/ResetPassword";
+import { ToastContainer } from "react-toastify";
 function App() {
   return (
     <BrowserRouter>
@@ -21,7 +21,8 @@ function Pages() {
   const location = useLocation();
   const isLoginPage = location.pathname === "/login" ||
     location.pathname === '/register' ||
-    location.pathname === '/forget-password';
+  location.pathname === '/forget-password'  || 
+    location.pathname.includes('/reset-password');
 
   return (
     <>
@@ -37,6 +38,8 @@ function Pages() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/forget-password" element={<ForgetPassword />} />
+          <Route path="/reset-password/:token" element={<ResetPassword />} />
+
         </Routes>
       )}
 
