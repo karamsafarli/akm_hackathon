@@ -17,7 +17,7 @@ function App() {
 function Pages() {
   const location = useLocation();
   const isLoginPage = location.pathname === "/login" ||
-    location.pathname === '/register'
+    location.pathname === '/register' ||
   location.pathname === '/forget-password';
 
   return (
