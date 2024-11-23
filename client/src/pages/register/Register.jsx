@@ -2,10 +2,11 @@ import "./register.css";
 import { FaGoogle } from "react-icons/fa";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { fetchData } from "../../services/fetch";
 
 const Register = () => {
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({
         name: "",
         email: "",
@@ -58,8 +59,7 @@ const Register = () => {
             if (result.error) {
                 setError(result.error);
             } else {
-                setError("");
-                setFormData({ name: "", email: "", password: "", confirmPassword: "" });
+                return navigate('/login')
             }
         } catch (err) {
             setError("An error occurred. Please try again.");

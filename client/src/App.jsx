@@ -5,6 +5,7 @@ import "./global.css"
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Navbar from "./components/layout/Navbar";
 import Home from "./pages/home/Home";
+import ForgetPassword from "./pages/forget-password/ForgetPassword";
 function App() {
   return (
     <BrowserRouter>
@@ -16,7 +17,8 @@ function App() {
 function Pages() {
   const location = useLocation();
   const isLoginPage = location.pathname === "/login" ||
-    location.pathname === '/register';
+    location.pathname === '/register'
+  location.pathname === '/forget-password';
 
   return (
     <>
@@ -31,6 +33,7 @@ function Pages() {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/forget-password" element={<ForgetPassword />} />
         </Routes>
       )}
     </>
