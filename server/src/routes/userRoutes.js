@@ -22,6 +22,8 @@ router.delete('/removeUser', authenticateToken, verifyAdmin, userController.remo
 router.post('/uploadProfilePhoto', authenticateToken, upload.single('image'), userController.uploadProfilePhoto);
 
 router.patch('/editUser', authenticateToken, verifyAdmin, userController.editUser);
+router.patch('/editMe', authenticateToken, userController.editMe);
+router.patch('/editPassword', authenticateToken, userController.editPassword);
 
 router.get('/searchUsers', authenticateToken, userController.searchUsers);
 

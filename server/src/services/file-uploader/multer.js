@@ -1,27 +1,16 @@
+// src/middleware/multer.js
 const multer = require('multer');
-const path = require('path');
+const { CloudinaryStorage } = require('multer-storage-cloudinary');
+const cloudinary = require('./cloudinary');
 
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, path.resolve('public', 'uploads'));
+const storage = new CloudinaryStorage({
+    cloudinary: cloudinary,
+    params: {
+        folder: 'images',
+        allowed_formats: ['jpg', 'jpeg', 'png', 'webp'],
     },
-    filename: (req, file, cb) => {
-        cb(null, Date.now() + '-' + file.originalname);
-    }
 });
 
-const fileFilter = (req, file, cb) => {
-    const allowedTypes = ['image/jpg', 'image/jpeg', 'image/png', 'image/gif', 'video/mp4'];
-    if (allowedTypes.includes(file.mimetype)) {
-        cb(null, true);
-    } else {
-        cb(new Error('Only image and video files are allowed'), false);
-    }
-};
+const upload = multer({ storage });
 
-const upload = multer({
-    storage: storage,
-    fileFilter: fileFilter
-});
-
-module.exports = { upload }
+module.exports = { upload };

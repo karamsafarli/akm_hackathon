@@ -83,12 +83,12 @@ const removeUser = async (req, res) => {
 const uploadProfilePhoto = async (req, res) => {
     try {
         const userId = req.user.id;
-        const profileImg = `/uploads/${req.file.filename}`;
-
+        const profileImg = req.file.path;
         await User.findByIdAndUpdate(userId, { profileImg });
 
         return res.status(201).json({ message: 'Profile photo uploaded successfully!', profileImg })
     } catch (error) {
+        console.log(error)
         return res.status(500).json({ error: 'Error occured while uploading a photo!' });
     }
 }
@@ -96,9 +96,9 @@ const uploadProfilePhoto = async (req, res) => {
 
 const editUser = async (req, res) => {
     try {
-        const { userId, name, surname, email, password, rtc, roles } = req.body;
+        const { name, email, password } = req.body;
 
-        if (!userId) return res.status(404).json({ error: 'User not found!' });
+        const userId = req.user.id;
 
         let editedData = {};
 
@@ -124,6 +124,61 @@ const editUser = async (req, res) => {
         return res.status(500).json({ error: 'User could not be updated successfully!' });
     }
 }
+
+const editMe = async (req, res) => {
+    try {
+        const { name, email } = req.body;
+        const userId = req.user.id;
+
+        let editedData = {};
+
+        if (name) editedData.name = name;
+        if (email) editedData.email = email;
+
+        const editedUser = await User.findByIdAndUpdate(
+            userId,
+            editedData,
+            { new: true }
+        );
+
+        return res.status(201).json({ message: 'User updated successfully!', user: editedUser });
+
+    } catch (error) {
+        return res.status(500).json({ error: 'User could not be updated successfully!' });
+    }
+}
+
+const editPassword = async (req, res) => {
+    try {
+        const userId = req.user.id;
+        const { currentPassword, newPassword } = req.body;
+
+        if (!currentPassword || !newPassword) {
+            return res.status(400).json({ error: 'Current password and new password are required.' });
+        }
+
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).json({ error: 'User not found.' });
+        }
+
+        const isMatch = await bcrypt.compare(currentPassword, user.password);
+        if (!isMatch) {
+            return res.status(401).json({ error: 'Current password is incorrect.' });
+        }
+
+        const salt = await bcrypt.genSalt(10);
+        const hashedNewPassword = await bcrypt.hash(newPassword, salt);
+
+        user.password = hashedNewPassword;
+        await user.save();
+
+        return res.status(200).json({ message: 'Password updated successfully.' });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ error: 'Server error. Please try again later.' });
+    }
+};
 
 
 const searchUsers = async (req, res) => {
@@ -272,6 +327,7 @@ module.exports = {
     removeUser,
     uploadProfilePhoto,
     editUser,
+    editMe,
     getUser,
     getAllUsers,
     searchUsers,
@@ -279,5 +335,6 @@ module.exports = {
     updateAbout,
     updateProfileView,
     resetPassword,
-    requestPasswordReset
+    requestPasswordReset,
+    editPassword
 }
