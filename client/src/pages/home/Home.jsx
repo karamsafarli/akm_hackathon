@@ -1,7 +1,12 @@
-
+import Slider from "../../components/Slider/Slider"
+import Slidertwo from '../../components/Slidertwo/Slidertwo'
 const Home = () => {
+
   return (
-    <div>Home</div>
+    <div>
+      <Slider/>
+      <Slidertwo/>
+    </div>
   )
 }
 
