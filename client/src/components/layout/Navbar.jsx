@@ -40,6 +40,7 @@ const Navbar = () => {
                                 <Link to='/' onClick={toggleMenu}>Home</Link>
                                 <Link to='/profile' onClick={toggleMenu}>Profile</Link>
                                 <Link to='/calculate' onClick={toggleMenu}>Calculate</Link>
+                                <Link to='/insights' onClick={toggleMenu}>Insights</Link>
                                 <Link onClick={signOut}>Sign Out</Link>
                             </>
                             :

@@ -48,6 +48,8 @@
             select {
                 width: 100%;
                 padding: 10px 5px;
+                border-radius: 6px;
+                border: 1px solid rgba(128, 128, 128, 0.484);
             }
         }
     }

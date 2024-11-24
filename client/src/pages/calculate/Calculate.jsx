@@ -1,8 +1,11 @@
 import { useState } from 'react';
 import './calculate.css';
+import { fetchData } from '../../services/fetch';
 
 const Calculate = () => {
+    const token = localStorage.getItem('token');
     const [carbonEmission, setCarbonEmission] = useState(0);
+    const [isLoading, setIsLoading] = useState(false);
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -18,8 +21,6 @@ const Calculate = () => {
             }
             formData[group][question] = value;
 
-
-
             const selectElement = e.target.querySelector(`[name="${key}"]`);
 
             if (selectElement) {
@@ -32,27 +33,60 @@ const Calculate = () => {
                 }
                 formData2[group][label] = selectedOption;
             }
-
-            
         });
 
-        console.log(formData)
-        console.log(formData2)
         try {
-            const result = await fetch('https://1f02-82-194-22-102.ngrok-free.app/calculate', {
+            setIsLoading(true);
+
+            const result = await fetch('https://8bd0-94-20-49-98.ngrok-free.app/calculate', {
                 method: 'POST',
                 body: JSON.stringify(formData),
                 headers: {
                     'Content-Type': 'application/json'
                 }
-            })
+            });
 
             const data = await result.json();
-            console.log(data)
-            setCarbonEmission(data.carbon_emission_per_day?.toFixed(1));
-            window.scrollTo(0, 0);
+            console.log(data);
+            const calculatedEmission = data.carbon_emission_per_day?.toFixed(1);
+            setCarbonEmission(calculatedEmission); 
+
+            const recommendation = await fetch('https://8bd0-94-20-49-98.ngrok-free.app/recommend', {
+                method: 'POST',
+                body: JSON.stringify(formData2),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            const recommendData = await recommendation.json();
+
+            const res = await fetchData(
+                'api/ceo2/postCarbonEmission',
+                'POST',
+                {
+                    emissionData: JSON.stringify(formData),
+                    calculatedEmission: calculatedEmission, 
+                    humanizedEmissionData: JSON.stringify(formData2),
+                    recommendations: JSON.stringify(recommendData),
+                    sectionRates: JSON.stringify({
+                        consumption: data.consumption_emission_percentage,
+                        food: data.food_emission_percentage,
+                        home: data.home_emission_percentage,
+                        industry: data.industry_emission_percentage,
+                        transport: data.transport_emission_percentage,
+                        waste: data.waste_emission_percentage,
+                        water: data.water_emission_percentage
+                    })
+                },
+                token
+            );
+
         } catch (error) {
             console.error('Error:', error);
+        } finally {
+            setIsLoading(false);
+            window.scrollTo(0, 0);
         }
     };
 
@@ -429,7 +463,7 @@ const Calculate = () => {
                     </div>
 
 
-                    <button type='submit'>Calculate</button>
+                    <button type='submit'>{isLoading ? 'Calculating...' : 'Calculate'}</button>
                 </form>
             </div>
         </div>

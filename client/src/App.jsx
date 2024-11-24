@@ -11,6 +11,7 @@ import ResetPassword from "./pages/reset-password/ResetPassword";
 import { ToastContainer } from "react-toastify";
 import Profile from "./pages/profile/Profile";
 import Calculate from "./pages/calculate/Calculate";
+import Insights from "./pages/insights/Insights";
 import AdminDashboard from "./pages/dashboard/AdminDashboard";
 function App() {
   return (
@@ -37,6 +38,7 @@ function Pages() {
             <Route path='/' element={<Home />} />
             <Route path='/profile' element={<Profile />} />
             <Route path='/calculate' element={<Calculate />} />
+            <Route path='/insights' element={<Insights />} />
             <Route path="/admin-dashboard" element={<AdminDashboard />} />
           </Routes>
         </>
