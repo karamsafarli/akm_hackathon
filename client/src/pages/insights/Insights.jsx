@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 import './insights.css';
 import { fetchData } from '../../services/fetch';
 import { Link } from 'react-router-dom';
-import AverageScoreChart from '../../components/charts/Distribution';
 import PieChart from '../../components/charts/PieChart';
+import CarbonScoreChart from '../../components/charts/Distribution';
 
 const Insights = () => {
     const token = localStorage.getItem('token');
@@ -16,6 +16,7 @@ const Insights = () => {
             token
         );
 
+
         const parsedCarbonEmissionData = {
             calculatedEmission: data.calculatedEmission,
             createdAt: data.createdAt,
@@ -24,10 +25,11 @@ const Insights = () => {
             _id: data._id,
             emissionData: JSON.parse(data.emissionData),
             humanizedEmissionData: JSON.parse(data.humanizedEmissionData),
-            recommendations: JSON.parse(data.recommendations).response, 
-            sectionRates: JSON.parse(data.sectionRates), 
+            recommendations: JSON.parse(data.recommendations).response,
+            sectionRates: JSON.parse(data.sectionRates),
         };
 
+        console.log(parsedCarbonEmissionData)
         setCarbonEmissionData(parsedCarbonEmissionData)
 
     }
@@ -35,23 +37,17 @@ const Insights = () => {
         setLatestCarbonEmission();
     }, [])
 
-    const ranges = [
-        [0, 100],
-        [101, 200],
-        [201, 300],
-        [301, 400],
-        [401, 500],
-    ];
+    
 
-    const userScore = 70;
-   
     return (
         <div className='insights_page'>
             <div className="container">
                 {
                     carbonEmissionData ?
                         <>
-                            {/* <AverageScoreChart ranges={ranges} userScore={userScore} /> */}
+                            <div className="charts">
+                                <CarbonScoreChart userScore={carbonEmissionData.calculatedEmission} />
+                            </div>
                             <div className='charts'>
                                 <PieChart labels={Object.keys(carbonEmissionData?.sectionRates) || []} data={Object.values(carbonEmissionData?.sectionRates) || []} />
                             </div>
