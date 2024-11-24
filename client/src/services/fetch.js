@@ -1,14 +1,14 @@
-export async function fetchData(url, method = 'GET', body = null, token = '') {
+export async function fetchData(url, method = 'GET', body = null, token = '', json = true) {
     try {
         const headers = {
-            'Content-Type': 'application/json',
+            ...(json && { 'Content-Type': 'application/json' }),
             ...(token && { 'Authorization': `Bearer ${token}` })
         };
 
         const response = await fetch(`${import.meta.env.VITE_BASE_URL}/${url}`, {
             method,
             headers,
-            ...(body && { body: JSON.stringify(body) })
+            ...(body && { body: json ? JSON.stringify(body) : body })
         });
 
         if (!response.ok) {

@@ -9,6 +9,8 @@ import Home from "./pages/home/Home";
 import ForgetPassword from "./pages/forget-password/ForgetPassword";
 import ResetPassword from "./pages/reset-password/ResetPassword";
 import { ToastContainer } from "react-toastify";
+import Profile from "./pages/profile/Profile";
+import Calculate from "./pages/calculate/Calculate";
 function App() {
   return (
     <BrowserRouter>
@@ -31,6 +33,8 @@ function Pages() {
           <Navbar />
           <Routes>
             <Route path='/' element={<Home />} />
+            <Route path='/profile' element={<Profile />} />
+            <Route path='/calculate' element={<Calculate />} />
           </Routes>
         </>
       ) : (

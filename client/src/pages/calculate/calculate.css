@@ -1,0 +1,69 @@
+.calculation_page {
+    padding: 40px 0;
+    max-width: 800px;
+    margin: 0 auto;
+    h1 {
+        color: var(--primary-color);
+        margin-bottom: 40px;
+        text-align: center;
+    }
+
+    .result {
+        width: 280px;
+        height: 280px;
+        margin: 20px auto;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 3px solid var(--primary-color);
+        p {
+            margin: 0;
+            color: #fff;
+            color: var(--primary-color);
+            font-size: 45px;
+            font-weight: bold;
+            span {
+                margin: 0;
+                font-size: 12px;
+            }
+        }
+    }
+
+    .question_group {
+        margin-bottom: 50px;
+        h2 {
+            font-size: 24px;
+            color: #309976;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .input_group {
+            margin-bottom: 20px;
+            label {
+                width: 100%;
+                margin-bottom: 5px;
+            }
+            select {
+                width: 100%;
+                padding: 10px 5px;
+            }
+        }
+    }
+
+    button {
+        width: 100%;
+        padding: 10px 0;
+        border-radius: 12px;
+        background-color: var(--primary-color);
+        color: #fff;
+        font-size: 24px;
+        border: none;
+        font-weight: 600;
+        transition: .1s ease-in-out;
+        &:hover {
+            background-color: #309976;
+        }
+    }
+}
