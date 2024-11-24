@@ -11,6 +11,7 @@ import ResetPassword from "./pages/reset-password/ResetPassword";
 import { ToastContainer } from "react-toastify";
 import Profile from "./pages/profile/Profile";
 import Calculate from "./pages/calculate/Calculate";
+import Insights from "./pages/insights/Insights";
 function App() {
   return (
     <BrowserRouter>
@@ -35,6 +36,7 @@ function Pages() {
             <Route path='/' element={<Home />} />
             <Route path='/profile' element={<Profile />} />
             <Route path='/calculate' element={<Calculate />} />
+            <Route path='/insights' element={<Insights />} />
           </Routes>
         </>
       ) : (

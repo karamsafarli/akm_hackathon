@@ -7,11 +7,23 @@ const carbonEmissionSchema = new Schema({
         ref: 'User',
         required: true
     },
+    calculatedEmission: {
+        type: Number,
+        required: true
+    },
     emissionData: {
         type: String,
         required: true
     },
     humanizedEmissionData: {
+        type: String,
+        required: true
+    },
+    sectionRates: {
+        type: String,
+        required: true
+    },
+    recommendations: {
         type: String,
         required: true
     }
