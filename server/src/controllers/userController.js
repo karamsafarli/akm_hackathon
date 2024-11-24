@@ -56,9 +56,7 @@ const getUser = async (req, res) => {
 const getAllUsers = async (req, res) => {
     try {
         const userId = req.user.id;
-        const start = req.query.start || 0;
-        const count = req.query.count || 10;
-        const users = await User.find({ _id: { $ne: userId } }).skip(start).limit(count);
+        const users = await User.find({ _id: { $ne: userId } });
         const totalUsers = await User.countDocuments({ _id: { $ne: userId } });
         return res.status(200).json({ users, count: totalUsers });
     } catch (error) {

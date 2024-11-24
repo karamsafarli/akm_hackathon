@@ -45,6 +45,8 @@ const Slidertwo = () => {
 
   
       <div className="slidertwopart">
+      <p style={{userSelect:"none", fontSize:"34px",fontWeight:"500"}}>Top News</p>
+
         <Swiper
           slidesPerView={3}
           spaceBetween={30}

@@ -78,7 +78,15 @@ const Login = () => {
                 </div>
                 <button type="submit">Login</button>
                 <Link to="/forget-password">Forget Password?</Link>
+                <div className="down" style={{textAlign:"center"}}>
+
+                               
+<span>Need an account?</span>
+<a href="/register" style={{marginLeft:"10px",textDecoration:"underline",color:"#30C549FF", fontSize:"16px"}}>Sign Up</a>
+</div>
+
               </div>
+
             </form>
           </div>
         </div>

@@ -11,6 +11,7 @@ import ResetPassword from "./pages/reset-password/ResetPassword";
 import { ToastContainer } from "react-toastify";
 import Profile from "./pages/profile/Profile";
 import Calculate from "./pages/calculate/Calculate";
+import AdminDashboard from "./pages/dashboard/AdminDashboard";
 function App() {
   return (
     <BrowserRouter>
@@ -24,6 +25,7 @@ function Pages() {
   const isLoginPage = location.pathname === "/login" ||
     location.pathname === '/register' ||
   location.pathname === '/forget-password'  || 
+   
     location.pathname.includes('/reset-password');
 
   return (
@@ -35,6 +37,7 @@ function Pages() {
             <Route path='/' element={<Home />} />
             <Route path='/profile' element={<Profile />} />
             <Route path='/calculate' element={<Calculate />} />
+            <Route path="/admin-dashboard" element={<AdminDashboard />} />
           </Routes>
         </>
       ) : (
@@ -43,6 +46,8 @@ function Pages() {
           <Route path="/register" element={<Register />} />
           <Route path="/forget-password" element={<ForgetPassword />} />
           <Route path="/reset-password/:token" element={<ResetPassword />} />
+        
+
 
         </Routes>
       )}

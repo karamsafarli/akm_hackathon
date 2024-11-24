@@ -130,6 +130,12 @@ const Register = () => {
                                     </Link>
                                 </div>
                                 <button type="submit">Sign Up</button>
+                                <div className="down" style={{textAlign:"center"}}>
+
+                                
+                                <span>Already a User?</span>
+                                <a href="/login" style={{marginLeft:"10px",color:"#30C549FF"}}>Login</a>
+                            </div>
                             </div>
                         </form>
                     </div>
